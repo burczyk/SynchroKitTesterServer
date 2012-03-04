@@ -1,6 +1,6 @@
 # Create your views here.
 
-from synchroKitTesterServer.models import User, Message
+from synchroKitTesterServer.models import User, Message, UpdateDate
 from synchroKitTesterServer.response import JSONResponse
 from django.shortcuts import render_to_response
 
@@ -12,3 +12,10 @@ def get_model(request, model):
                       }      
 
     return modelResponses.get(model, render_to_response('404jsontab.html'))
+
+def get_update_date(request, model):
+    try:
+        updateDate = UpdateDate.objects.filter(pk=model)
+        return JSONResponse(updateDate.values('className', 'updateDate'))
+    except UpdateDate.DoesNotExist:
+        return render_to_response('404jsontab.html')
