@@ -16,6 +16,6 @@ def get_model(request, model):
 def get_update_date(request, model):
     try:
         updateDate = UpdateDate.objects.filter(pk=model)
-        return JSONResponse(updateDate.values('className', 'updateDate'))
+        return JSONResponse(updateDate.values('className', 'updateDate', 'dateFormat'))
     except UpdateDate.DoesNotExist:
         return render_to_response('404jsontab.html')

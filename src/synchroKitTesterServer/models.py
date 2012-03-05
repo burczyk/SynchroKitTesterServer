@@ -12,6 +12,7 @@ class User(models.Model):
         except UpdateDate.DoesNotExist:
             lastUpdateDate = UpdateDate()
             lastUpdateDate.className = 'User'
+            lastUpdateDate.dateFormat = 'yyyy-MM-dd HH:mm:ss.SSSSSS'
             
         lastUpdateDate.updateDate = datetime.now()
         UpdateDate.save(lastUpdateDate)
@@ -31,6 +32,7 @@ class Message(models.Model):
         except UpdateDate.DoesNotExist:
             lastUpdateDate = UpdateDate()
             lastUpdateDate.className = 'Message'
+            lastUpdateDate.dateFormat = 'yyyy-MM-dd HH:mm:ss.SSSSSS'
             
         lastUpdateDate.updateDate = datetime.now()
         UpdateDate.save(lastUpdateDate)    
@@ -38,6 +40,7 @@ class Message(models.Model):
 class UpdateDate(models.Model):
     className   = models.CharField(max_length=255, primary_key=True)
     updateDate  = models.DateTimeField()     
+    dateFormat  = models.CharField(max_length=16)
     
     def __unicode__(self):
         return unicode(self.className)
